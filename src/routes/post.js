@@ -2,7 +2,13 @@
 
 import R from 'ramda';
 
-export default async (req: any, res: any) => (
+type Args = {
+  req: *,
+  res: *,
+  ws: *,
+};
+
+export default async ({ req, res, ws }: Args) => (
   R.pipe(
     ({ data }) => (
       R.cond([
@@ -14,13 +20,17 @@ export default async (req: any, res: any) => (
         [R.T, async () => {
           const { id, delay, source } = req.body;
 
+          const message = {
+            id,
+            delay,
+            source,
+          };
+
+          ws.send(JSON.stringify(message));
+
           res
             .status(200)
-            .send({
-              id,
-              delay,
-              source,
-            })
+            .send(message)
             .end();
         }],
       ])(data)

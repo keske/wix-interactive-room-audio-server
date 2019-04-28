@@ -1,5 +1,6 @@
 import Express from 'express';
 import R from 'ramda';
+import WebSocket from 'ws';
 
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -7,7 +8,9 @@ import helmet from 'helmet';
 
 import routes from './routes';
 
-R.pipe(({ app, port }) => {
+R.pipe(({ app, port, websockets }) => {
+  const wss = new WebSocket.Server({ port: websockets.port });
+
   app.use(cors());
   app.use(helmet());
 
@@ -22,7 +25,9 @@ R.pipe(({ app, port }) => {
 
   app.use(Express.static('./public'));
 
-  routes(app);
+  wss.on('connection', (ws) => {
+    routes({ app, ws });
+  });
 
   app.listen(port, (err) => {
     if (err) {
@@ -34,4 +39,7 @@ R.pipe(({ app, port }) => {
 })({
   app: Express(),
   port: 3017,
+  websockets: {
+    port: 8080,
+  },
 });

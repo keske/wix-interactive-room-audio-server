@@ -4,9 +4,14 @@ import post from './routes/post';
 
 import type { Synth } from './types';
 
-export default (app: *) => (
+type Args = {
+  app: *,
+  ws: *,
+};
+
+export default ({ app, ws }: Args) => (
   app
     .post('/', (req, res): Promise<Synth> => (
-      post(req, res)
+      post({ req, res, ws })
     ))
 );
