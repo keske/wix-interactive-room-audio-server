@@ -9,7 +9,9 @@ import helmet from 'helmet';
 import routes from './routes';
 
 R.pipe(({ app, port, websockets }) => {
-  const wss = new WebSocket.Server({ port: websockets.port });
+  const wss = new WebSocket.Server({
+    port: websockets.port,
+  });
 
   app.use(cors());
   app.use(helmet());
