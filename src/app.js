@@ -42,8 +42,8 @@ R.pipe(({ app, port, websockets }) => {
   });
 })({
   app: Express(),
-  port: 3017,
+  port: 3080,
   websockets: {
-    port: 8080,
+    port: 3081,
   },
 });
