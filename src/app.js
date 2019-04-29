@@ -30,6 +30,7 @@ R.pipe(({ app, port, websockets }) => {
   app.use(Express.static('./public'));
 
   wss.on('connection', (ws) => {
+    console.log(ws);
     routes({ app, ws });
   });
 
@@ -44,6 +45,6 @@ R.pipe(({ app, port, websockets }) => {
   app: Express(),
   port: 3080,
   websockets: {
-    port: 3081,
+    port: 8080,
   },
 });
