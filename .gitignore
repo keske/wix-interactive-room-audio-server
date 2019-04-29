@@ -19,4 +19,3 @@ build-analyze.log
 config/*
 npm-debug.*
 npm-debug.log.*
-public/
