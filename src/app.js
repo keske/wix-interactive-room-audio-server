@@ -30,6 +30,8 @@ R.pipe(({ app, port, websockets }) => {
   app.use(Express.static('./public'));
 
   wss.on('connection', (ws) => {
+    console.log('Web Socket Connection On');
+
     routes({ app, ws });
   });
 
